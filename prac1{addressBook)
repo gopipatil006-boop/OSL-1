@@ -1,54 +1,50 @@
-
 #!/bin/bash
 
 while true
 do
-    echo "1.Create  2.View  3.Insert  4.Delete  5.Modify  6.Exit"
-    read ch
+    echo "1.Create"
+    echo "2.View"
+    echo "3.Insert"
+    echo "4.Delete"
+    echo "5.Modify"
+    echo "6.Exit"
+
+    read -p "Enter choice: " ch
 
     case $ch in
-
     1)
         > address.txt
-        echo "Enter name and mobile:"
-        read name mobile
-        echo "$name $mobile" >> address.txt
+        echo "Address book created"
         ;;
-
     2)
         cat address.txt
         ;;
-
     3)
-        echo "Enter name and mobile:"
-        read name mobile
-        echo "$name $mobile" >> address.txt
+        read -p "Enter name: " name
+        read -p "Enter phone: " phone
+        read -p "Enter address: " address
+        echo "$name,$phone,$address" >> address.txt
         ;;
-
     4)
-        echo "Enter name to delete:"
-        read name
-        grep -v "^$name " address.txt > temp.txt
+        read -p "Enter name to delete: " name
+        grep -v "^$name," address.txt > temp.txt
         mv temp.txt address.txt
+        echo "Record deleted"
         ;;
-
     5)
-        echo "Enter old name:"
-        read name
-        grep -v "^$name " address.txt > temp.txt
-        echo "Enter new name and mobile:"
-        read newname mobile
-        echo "$newname $mobile" >> temp.txt
+        read -p "Enter name to modify: " name
+        grep -v "^$name," address.txt > temp.txt
+        read -p "Enter new phone: " phone
+        read -p "Enter new address: " address
+        echo "$name,$phone,$address" >> temp.txt
         mv temp.txt address.txt
+        echo "Record modified"
         ;;
-
     6)
         exit
         ;;
-
     *)
         echo "Invalid choice"
         ;;
-
     esac
 done
